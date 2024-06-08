@@ -1,17 +1,17 @@
 import requests
 from jsonschema import validate
 from schemas.register import post_register_successful, post_register_unsuccessful
-from tests.conftest import URL
+from .conftest import url_api
 
 
-def test_post_register_successful():
+def test_post_register_successful(url_api):
 
     payload = {
         "email": "eve.holt@reqres.in",
         "password": "pistol"
     }
 
-    response = requests.post(URL + '/api/register', json=payload)
+    response = requests.post(f"{url_api}/api/register", json=payload)
     body = response.json()
     validate(body, post_register_successful)
 
@@ -20,14 +20,14 @@ def test_post_register_successful():
     assert body['token'] == "QpwL5tke4Pnpja7X4"
 
 
-def test_post_register_unsuccessful():
+def test_post_register_unsuccessful(url_api):
 
     payload = {
         "email": "george.bluth@reqres.in",
         "password": ""
     }
 
-    response = requests.post(URL + '/api/register', json=payload)
+    response = requests.post(f"{url_api}/api/register", json=payload)
     body = response.json()
     validate(body, post_register_unsuccessful)
 
