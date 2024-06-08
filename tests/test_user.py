@@ -1,7 +1,6 @@
 import requests
 from jsonschema import validate
 from schemas.user import get_list_users, get_single_user, post_create_user, put_update_user
-from tests.conftest import url_api
 
 
 def test_get_list_users(url_api):
